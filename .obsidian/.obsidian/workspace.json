@@ -1,0 +1,223 @@
+{
+  "main": {
+    "id": "6bae5a4933bda5e0",
+    "type": "split",
+    "children": [
+      {
+        "id": "97c885fe089939d6",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "57f88ff2c3d95918",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct004_lgpd.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "ct004_lgpd"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a3651eee4f6dea46",
+    "type": "split",
+    "children": [
+      {
+        "id": "e4014442fcd52a5f",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8410ab60e5d88f62",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Explorador de arquivos"
+            }
+          },
+          {
+            "id": "2d1814b416b12b01",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Procurar"
+            }
+          },
+          {
+            "id": "7191dc64f2915335",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Marcadores"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "9de999593ba284c0",
+    "type": "split",
+    "children": [
+      {
+        "id": "695f83469443f2a8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6930a7a13e460987",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct004_lgpd.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Links inversos para ct004_lgpd"
+            }
+          },
+          {
+            "id": "37b33b91fc341b59",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct004_lgpd.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Links de saída para ct004_lgpd"
+            }
+          },
+          {
+            "id": "77620c577f471c0c",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "2f1e572a064a989e",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-archive",
+              "title": "Todas as propriedades"
+            }
+          },
+          {
+            "id": "bee97092571145da",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct004_lgpd.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Sumário de ct004_lgpd"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Abrir a troca rápida": false,
+      "graph:Abrir visualização em gráfico": false,
+      "canvas:Criar novo canvas": false,
+      "daily-notes:Abrir a nota de hoje": false,
+      "templates:Inserir modelo": false,
+      "command-palette:Abrir paleta de comandos": false,
+      "bases:Criar nova base": false
+    }
+  },
+  "active": "57f88ff2c3d95918",
+  "lastOpenFiles": [
+    "casos-de-testes/agente-cobranca/evidencias/ct007_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct004_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct003_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct002_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct001_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct007_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct008_consistencia_valores_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct007_calculo_de_parcelamento_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct003_vulnerabilidade_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct002_hostilidade_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct001_desconto_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct005_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct004_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/evidencias/ct001_desconto_v2.md",
+    "casos-de-testes/agente-cobranca/__pycache__/agente.cpython-312.pyc",
+    "casos-de-testes/agente-cobranca/__pycache__",
+    "casos-de-testes/agente-cobranca/agente.py",
+    "casos-de-testes/agente-cobranca/testes/__pycache__/test_ct007.cpython-312-pytest-9.0.2.pyc",
+    "frameworks/trello_integration.py",
+    "casos-de-testes/agente-cobranca/testes/test_ct007.py",
+    "casos-de-testes/agente-cobranca/testes/__pycache__/test_ui_agente.cpython-312-pytest-9.0.2.pyc",
+    "casos-de-testes/agente-cobranca/testes/test_ui_agente.py",
+    "casos-de-testes/agente-cobranca/testes/test_ui_chat.py",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct003_vulnerabilidade.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct003_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct002_hostilidade.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct002_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct001_execucao_v1.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct001_desconto_v2.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct001_desconto_v1.md",
+    "frameworks/roteiro-diagnostico.md",
+    "casos-de-testes/agente-cobranca/testes/teste_ui_chat.py",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct006_promessa_pagamento.md",
+    "casos-de-testes/agente-cobranca/Roteiros_Manuais/ct007_parcelamento.md"
+  ]
+}
