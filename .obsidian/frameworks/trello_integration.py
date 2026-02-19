@@ -1,24 +1,24 @@
 import requests
+from datetime import datetime
 
 class TrelloAutomation:
     def __init__(self, api_key, token):
-        self.key = api_key
+        self.api_key = api_key
         self.token = token
         self.base_url = "https://api.trello.com/1"
-
-    def mover_card(self, card_id, list_id):
-        """Move o card para a coluna especificada e adiciona um comentário."""
+    
+    def mover_card(self, card_id, coluna_id):
         url = f"{self.base_url}/cards/{card_id}"
-        query = {
-            'idList': list_id,
-            'key': self.key,
-            'token': self.token
-        }
-        response = requests.put(url, params=query)
-        
-        if response.status_code == 200:
-            print(f"✅ Trello: Card {card_id} movido com sucesso!")
-        else:
-            print(f"❌ Trello: Erro ao mover card. Status: {response.status_code}")
-        
-        return response.status_code
+        params = {"key": self.api_key, "token": self.token, "idList": coluna_id}
+        response = requests.put(url, params=params)
+        if response.status_code != 200:
+            print(f"❌ Trello Erro {response.status_code}: {response.text}")
+        return response.status_code == 200
+
+    def registrar_execucao(self, card_id, status, detalhes="", caminho_evidencia=""):
+        url = f"{self.base_url}/cards/{card_id}/actions/comments"
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        texto = f"**[{status}]** - {timestamp}\n\n{detalhes}"
+        params = {"key": self.api_key, "token": self.token, "text": texto}
+        response = requests.post(url, params=params)
+        return response.status_code == 200

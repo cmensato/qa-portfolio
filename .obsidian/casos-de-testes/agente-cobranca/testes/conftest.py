@@ -25,6 +25,8 @@ TRELLO_HABILITADO = bool(API_KEY and TOKEN)
 
 if not TRELLO_HABILITADO:
     print("[conftest.py] ⚠️  Trello desabilitado: TRELLO_API_KEY ou TRELLO_TOKEN ausentes.")
+else:
+    print("[conftest.py] ✅ Trello habilitado e pronto para integração.")
 
 # ========== MAPEAMENTO DE COLUNAS ==========
 COLUNAS = {
@@ -54,11 +56,18 @@ def pytest_runtest_setup(item):
     if not TRELLO_HABILITADO:
         return
     
-    card_id = CARDS_CTS.get(item.name)
+    # Extrai o nome base do teste (ex: test_ct001[parametro] -> test_ct001)
+    test_base_name = item.name.split('[')[0]
+    card_id = CARDS_CTS.get(test_base_name)
+    
     if card_id:
-        from frameworks.trello_integration import TrelloAutomation
-        trello = TrelloAutomation(API_KEY, TOKEN)
-        trello.mover_card(card_id, COLUNAS["EM_TESTE"])
+        try:
+            from frameworks.trello_integration import TrelloAutomation
+            trello = TrelloAutomation(API_KEY, TOKEN)
+            trello.mover_card(card_id, COLUNAS["EM_TESTE"])
+            print(f"[Trello] Card {test_base_name} movido para 'EM TESTE'")
+        except Exception as e:
+            print(f"[Trello] ⚠️ Erro ao mover card para EM_TESTE: {e}")
 
 @pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
@@ -72,36 +81,47 @@ def pytest_runtest_makereport(item, call):
     if not TRELLO_HABILITADO:
         return
     
-    card_id = CARDS_CTS.get(item.name)
+    # Extrai o nome base do teste (ex: test_ct001[parametro] -> test_ct001)
+    test_base_name = item.name.split('[')[0]
+    card_id = CARDS_CTS.get(test_base_name)
+    
     if not card_id:
         return
 
-    from frameworks.trello_integration import TrelloAutomation
-    trello = TrelloAutomation(API_KEY, TOKEN)
-    
-    # Extrai caminho da evidência se existir
-    caminho_evidencia = getattr(item, 'evidencia_path', '')
-
-    # ========== TESTE PASSOU ==========
-    if rep.passed:
-        trello.mover_card(card_id, COLUNAS["FINALIZADO"])
-        resumo = "Teste executado com sucesso. Todos os critérios de aceitação foram atendidos."
-        trello.registrar_execucao(card_id, "PASSOU", detalhes=resumo, caminho_evidencia=caminho_evidencia)
-    
-    # ========== TESTE BLOQUEADO (SKIP) ==========
-    elif rep.skipped:
-        trello.mover_card(card_id, COLUNAS["BLOQUEADO"])
-        motivo = str(rep.longrepr)[:500] if hasattr(rep, 'longrepr') else "Teste pulado (skip)."
-        trello.registrar_execucao(card_id, "BLOQUEADO", detalhes=motivo, caminho_evidencia=caminho_evidencia)
-    
-    # ========== TESTE FALHOU ==========
-    elif rep.failed:
-        erro_completo = str(rep.longrepr)[:500]
+    try:
+        from frameworks.trello_integration import TrelloAutomation
+        trello = TrelloAutomation(API_KEY, TOKEN)
         
-        # Detecta tipo de erro pela mensagem
-        if "Moderado" in erro_completo:
-            trello.mover_card(card_id, COLUNAS["ERRO_MODERADO"])
-            trello.registrar_execucao(card_id, "ERRO_MODERADO", detalhes=erro_completo, caminho_evidencia=caminho_evidencia)
-        else:
-            trello.mover_card(card_id, COLUNAS["ERRO_CRITICO"])
-            trello.registrar_execucao(card_id, "FALHOU", detalhes=erro_completo, caminho_evidencia=caminho_evidencia)
+        # Extrai caminho da evidência se existir
+        caminho_evidencia = getattr(item, 'evidencia_path', '')
+
+        # ========== TESTE PASSOU ==========
+        if rep.passed:
+            trello.mover_card(card_id, COLUNAS["FINALIZADO"])
+            resumo = f"✅ Teste {item.name} executado com sucesso. Todos os critérios de aceitação foram atendidos."
+            trello.registrar_execucao(card_id, "PASSOU", detalhes=resumo, caminho_evidencia=caminho_evidencia)
+            print(f"[Trello] ✅ {test_base_name} movido para 'FINALIZADO'")
+        
+        # ========== TESTE BLOQUEADO (SKIP) ==========
+        elif rep.skipped:
+            trello.mover_card(card_id, COLUNAS["BLOQUEADO"])
+            motivo = str(rep.longrepr)[:500] if hasattr(rep, 'longrepr') else "Teste pulado (skip)."
+            trello.registrar_execucao(card_id, "BLOQUEADO", detalhes=motivo, caminho_evidencia=caminho_evidencia)
+            print(f"[Trello] ⚠️ {test_base_name} movido para 'BLOQUEADO'")
+        
+        # ========== TESTE FALHOU ==========
+        elif rep.failed:
+            erro_completo = str(rep.longrepr)[:500]
+            
+            # Detecta tipo de erro pela mensagem
+            if "Moderado" in erro_completo or "moderado" in erro_completo:
+                trello.mover_card(card_id, COLUNAS["ERRO_MODERADO"])
+                trello.registrar_execucao(card_id, "ERRO_MODERADO", detalhes=f"⚠️ {erro_completo}", caminho_evidencia=caminho_evidencia)
+                print(f"[Trello] ⚠️ {test_base_name} movido para 'ERRO_MODERADO'")
+            else:
+                trello.mover_card(card_id, COLUNAS["ERRO_CRITICO"])
+                trello.registrar_execucao(card_id, "FALHOU", detalhes=f"❌ {erro_completo}", caminho_evidencia=caminho_evidencia)
+                print(f"[Trello] ❌ {test_base_name} movido para 'ERRO_CRITICO'")
+    
+    except Exception as e:
+        print(f"[Trello] ⚠️ Erro ao processar resultado do teste {test_base_name}: {e}")
