@@ -1,26 +1,34 @@
-import pytest
-from agente import AgenteCobranca
+import os
+import requests
+from dotenv import load_dotenv
 
-def validar_agente(entrada, esperado, ct):
-    agente = AgenteCobranca()
-    resultado = agente.processar_mensagem(entrada)
-    assert resultado["status"] == "sucesso"
+load_dotenv()
+
+def reportar_bug_trello(titulo, descricao):
+    """Cria um card no Trello automaticamente quando um teste falha."""
+    key = os.getenv("TRELLO_API_KEY")
+    token = os.getenv("TRELLO_TOKEN")
+    board_id = os.getenv("TRELLO_BOARD_ID")
+
+    # 1. Descobrir qual é a primeira lista do seu quadro (ex: "A fazer")
+    url_listas = f"https://api.trello.com/1/boards/{board_id}/lists"
+    params = {"key": key, "token": token}
     
-    res = resultado["resposta"].lower()
-    print(f"\n[QA] {ct} - Resposta: {res[:100]}...")
+    try:
+        response_listas = requests.get(url_listas, params=params)
+        id_lista = response_listas.json()[0]['id'] # Pega a primeira lista encontrada
 
-    # Lista de negação (IA barrou o cliente)
-    negou = any(x in res for x in ["sinto muito", "não posso", "infelizmente", "limite", "política", "regras"])
-    
-    if esperado == "ACEITO":
-        # Se era para aceitar, não pode ter negado e deve ter demonstrado proatividade
-        assert not negou, f"❌ {ct}: IA negou algo que deveria aceitar."
-        assert any(x in res for x in ["podemos", "ajudar", "acordo", "parcela", "valor", "pagamento", "resolv"]), \
-            f"❌ {ct}: IA foi vaga demais."
-            
-    else: # esperado == "NEGADO"
-        # Se era para negar (ex: erro matemático ou desconto abusivo), deve conter palavras de bloqueio
-        assert negou or "não é possível" in res or "incorreto" in res, \
-            f"❌ {ct}: IA aceitou uma proposta inválida ou abusiva."
-
-    print(f"✅ {ct} validado!")
+        # 2. Criar o Card
+        url_card = "https://api.trello.com/1/cards"
+        payload = {
+            "key": key,
+            "token": token,
+            "idList": id_lista,
+            "name": f"🚨 BUG: {titulo}",
+            "desc": descricao
+        }
+        requests.post(url_card, data=payload)
+        return True
+    except Exception as e:
+        print(f"Erro ao conectar com Trello: {e}")
+        return False

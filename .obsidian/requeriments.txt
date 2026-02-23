@@ -1,6 +1,0 @@
-pytest
-requests
-selenium
-webdriver-manager
-ollama
-python-dotenv

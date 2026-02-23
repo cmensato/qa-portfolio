@@ -1,0 +1,5 @@
+ollama
+pytest
+python-dotenv
+requests
+streamlit
